@@ -1,0 +1,33 @@
+data:
+#  dataset_path: "../marketdata"
+  dataset_path: "../non_standard_eurgbp"
+  marketdata: "EURGBP_19M_2010-01-01_2026-01-01_MetaQuotes-Demo.csv"
+#  marketdata: "EURGBP_5M_2005-01-01_2026-01-01_MetaQuotes-Demo.csv"
+#  marketdata: 'GBPUSD_M5_2020-01-01_2026-01-01_bcs.csv'
+#  marketdata: 'EURUSD_M5_2020-01-01_2026-01-01_bcs.csv'
+#  marketdata: 'EURGBP_M5_2020-01-01_2026-01-01_bcs.csv'
+#  marketdata: 'XAUUSD_M5_2020-01-01_2026-01-01_bcs.csv'
+  start_date: "2020-01-04"
+  end_date: "2025-05-28"
+
+strategy:
+  donchian_window: 20
+  rsi_period: 14
+  rsi_exit: 10
+  cooldown_bars: 12
+
+  eod_exit: true                  # Выход в кэш по времени (учет торговой сессии)
+  eod_exit_time: 9                # Время выхода в кэш
+  eod_change_signal_open: false   # открывается позиция только после смены сигнала
+
+  atr_enabled: true            # ATR включен
+  atr_period: 100
+  atr_threshold: 0.0002        # Порог для низкой волатильности ATR
+
+optimization:
+  use_optimization: false
+  n_trials: 100
+
+output:
+  destination_path: "outputs/backtest_outputs"
+  stats_results: true
