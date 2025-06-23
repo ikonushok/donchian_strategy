@@ -7,18 +7,18 @@ data:
   end_date: "2025-05-28"
 
 strategy:
-  donchian_window: 20
-  rsi_period: 14
-  rsi_exit: 10
-  cooldown_bars: 12
+  donchian_window: 20             # Окно для канала Дончиана
+  rsi_period: 14                  # Период RSI
+  rsi_exit: 10                    # Порог RSI для выхода в кэш
+  cooldown_bars: 12               # Количество баров между сделками
 
   eod_exit: true                  # Выход в кэш по времени (учет торговой сессии)
   eod_exit_time: 9                # Время выхода в кэш
   eod_change_signal_open: false   # открывается позиция только после смены сигнала
 
-  atr_enabled: true            # ATR включен
-  atr_period: 100              # Период ATR
-  atr_threshold: 0.0002        # Порог для низкой волатильности ATR
+  atr_enabled: true               # ATR включен
+  atr_period: 100                 # Период ATR
+  atr_threshold: 0.0002           # Порог для низкой волатильности ATR
 
 optimization:
   use_optimization: false
