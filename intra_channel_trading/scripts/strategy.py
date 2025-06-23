@@ -1,4 +1,4 @@
-import pandas as pd
+
 from tqdm import trange
 
 from .indicators import calculate_donchian, calculate_rsi, calculate_atr

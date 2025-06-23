@@ -1,12 +1,8 @@
 data:
-#  dataset_path: "../marketdata"
-  dataset_path: "../non_standard_eurgbp"
-  marketdata: "EURGBP_19M_2010-01-01_2026-01-01_MetaQuotes-Demo.csv"
-#  marketdata: "EURGBP_5M_2005-01-01_2026-01-01_MetaQuotes-Demo.csv"
-#  marketdata: 'GBPUSD_M5_2020-01-01_2026-01-01_bcs.csv'
-#  marketdata: 'EURUSD_M5_2020-01-01_2026-01-01_bcs.csv'
-#  marketdata: 'EURGBP_M5_2020-01-01_2026-01-01_bcs.csv'
-#  marketdata: 'XAUUSD_M5_2020-01-01_2026-01-01_bcs.csv'
+  dataset_path: "../marketdata"
+#  dataset_path: "../non_standard_eurgbp"
+  marketdata: "EURGBP_5M_2010-01-04_2025-05-29_MetaQuotes-Demo.csv"
+#  marketdata: "EURUSD_20M_2010-01-04_2025-05-01_MetaQuotes-Demo.csv"
   start_date: "2020-01-04"
   end_date: "2025-05-28"
 
@@ -21,7 +17,7 @@ strategy:
   eod_change_signal_open: false   # открывается позиция только после смены сигнала
 
   atr_enabled: true            # ATR включен
-  atr_period: 100
+  atr_period: 100              # Период ATR
   atr_threshold: 0.0002        # Порог для низкой волатильности ATR
 
 optimization:

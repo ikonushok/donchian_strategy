@@ -1,7 +1,7 @@
 import os
 from auxiliary.utils import calculate_profit, load_data
-from _new_project.scripts.config_loader import load_config
-from _new_project.scripts.strategy import donchian_rsi_exit_only
+from scripts.config_loader import load_config
+from scripts.strategy import donchian_rsi_exit_only
 
 
 def main():
