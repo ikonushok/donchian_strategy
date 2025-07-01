@@ -3,11 +3,10 @@ import yaml
 import warnings
 
 import pandas as pd
-import matplotlib.pyplot as plt
 
 from backtesting import Backtest
 from backtesting import _plotting as plt_backtesting
-from .backtest_strategy import Strategy_Fix_Lot
+from .backtest_strategy import StrategyFixLot
 
 warnings.filterwarnings("ignore")
 plt_backtesting._MAX_CANDLES = 1_000_000
@@ -15,51 +14,26 @@ pd.set_option("display.precision", 5)
 pd.set_option("expand_frame_repr", False)
 
 
-def load_data(file_path,
-              start_date, end_date,
-              verbose=False):
-    df = pd.read_csv(file_path)
-    # print(df)
-    df['Open'] = df['Open'].astype(float)
-    df['High'] = df['High'].astype(float)
-    df['Low'] = df['Low'].astype(float)
-    df['Close'] = df['Close'].astype(float)
-    # df['Datetime'] = df['Date'].str.replace('.', '-') + ' ' + df['Time'] + ':00'
-    # df = df.drop(columns=['Date', 'Time'])
-    df['Datetime'] = pd.to_datetime(df['Datetime'])
-    df = df.sort_values(by=['Datetime'])
-    df.drop_duplicates(subset=['Datetime'], keep='first', inplace=True)
-    df.set_index('Datetime', inplace=True)
-    # print(df)
-    # Filter data by date
-    dataset = df.copy()
-    dataset = dataset[(dataset.index >= start_date) & (dataset.index <= end_date)]
-    if verbose:
-        dataset.plot(y='Close', use_index=True, title=f'Dataset from {start_date} to {end_date}')
-        plt.show()
-    return dataset
 
 
-def calculate_profit(signals,
-                     verbose=False, filename=None):
+def calculate_profit(signals, verbose=False, filename=None, params=None):
     bt = Backtest(signals,
-                  # strategy=Strategy_Cumulative,
-                  strategy=Strategy_Fix_Lot,
+                  strategy=StrategyFixLot,
                   cash=100_000,
                   margin=1 / 100,
                   commission=0.00,
                   exclusive_orders=True,
-                  trade_on_close=False,
-                  )
-    stats = bt.run()
+                  trade_on_close=False)
+
+    stats = bt.run(**params)  # Передаём из YAML или другого источника
 
     if verbose:
         bt.plot(relative_equity=False,
                 plot_equity=True,
                 plot_drawdown=True,
                 filename=f'{filename}.html')
-        print(f'\n{stats[:27]}')
-        print(f'\n{stats._trades}')
+        print(f'\n{stats[:-3]}')
+        print(f'\n{stats._trades[:30]}')
 
     return stats
 
@@ -84,3 +58,4 @@ def save_best_artifacts(ticker, timeframe, start_date, end_date, n_trials, best_
     df_study.to_csv(f'outputs/trials/{filename}/df_study_{filename}.csv')
     with open(f'outputs/trials/{filename}/best_trial_{filename}.yaml', 'w') as f:
         yaml.dump(best_trial.params, f, default_flow_style=False, sort_keys=False)
+
